@@ -1,0 +1,46 @@
+<div class="container">
+  <h1>Image Clustering Dashboard</h1>
+
+  <input type="file" multiple (change)="onFilesSelected($event)" />
+
+  <p *ngIf="selectedImages.length">
+    Selected images: {{ selectedImages.length }}/{{ maxFiles }}
+  </p>
+
+  <p *ngIf="showLimitMessage" class="warning">
+    You can upload up to {{ maxFiles }} images only.
+  </p>
+
+  <button (click)="sendImages()" [disabled]="selectedImages.length === 0 || clusters.length > 0 || loading">
+    Process Images
+  </button>
+  <button (click)="reset()" [disabled]="loading">New Process</button>
+
+    <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    Processing images... 
+  </div>
+
+
+
+  <!-- Previews in grid -->
+  <div class="preview-grid" *ngIf="selectedImages.length && clusters.length === 0 && !loading">
+    <div *ngFor="let img of selectedImages" class="grid-item">
+      <img [src]="img.previewUrl" />
+    </div>
+  </div>
+
+
+  <!-- Clusters in grid -->
+  <div *ngIf="clusters.length" class="clusters-grid">
+    <div *ngFor="let cluster of clusters" class="cluster">
+      <h2>Cluster {{ cluster.name }}</h2>
+      <p *ngIf="cluster.description">Description: {{ cluster.description }}</p>
+      <div class="grid-images">
+        <div *ngFor="let imgUrl of cluster.image_ids" class="grid-item">
+          <img [src]="imgUrl" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
