@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "image-cluster-ia-web": {
+    "image-cluster-ai-web": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/image-cluster-ia-web",
+            "outputPath": "dist/image-cluster-ai-web",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -45,7 +45,13 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -59,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "image-cluster-ia-web:build:production"
+              "buildTarget": "image-cluster-ai-web:build:production"
             },
             "development": {
-              "buildTarget": "image-cluster-ia-web:build:development"
+              "buildTarget": "image-cluster-ai-web:build:development"
             }
           },
           "defaultConfiguration": "development"
