@@ -12,16 +12,14 @@
   </p>
 
   <button (click)="sendImages()" [disabled]="selectedImages.length === 0 || clusters.length > 0 || loading">
-    Process Images
+    Start Clustering
   </button>
   <button (click)="reset()" [disabled]="loading">New Process</button>
 
-    <!-- Loading -->
+  <!-- Loading -->
   <div *ngIf="loading" class="loading">
-    Processing images... 
+    Clustering images... 
   </div>
-
-
 
   <!-- Previews in grid -->
   <div class="preview-grid" *ngIf="selectedImages.length && clusters.length === 0 && !loading">
@@ -29,7 +27,6 @@
       <img [src]="img.previewUrl" />
     </div>
   </div>
-
 
   <!-- Clusters in grid -->
   <div *ngIf="clusters.length" class="clusters-grid">

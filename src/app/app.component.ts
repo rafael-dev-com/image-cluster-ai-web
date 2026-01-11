@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../environments/environment';
 
 interface Cluster {
   name: string;
@@ -106,13 +107,15 @@ export class AppComponent {
     this.selectedImages.forEach(img => formData.append('files', img.file));
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/cluster-images', {
+
+      const apiUrl = environment.apiUrl;
+      const response = await fetch(`${apiUrl}/cluster-images`, {
         method: 'POST',
         body: formData
       });
 
       if (!response.ok) {
-        alert('Error enviando imágenes');
+        alert('Error sending images for clustering');
         this.loading = false;
         return;
       }
@@ -120,6 +123,7 @@ export class AppComponent {
       const data = await response.json();
       const clustersFromApi: Cluster[] = data.clusters || [];
 
+      // Map previews to clusters
       this.clusters = clustersFromApi.map(cluster => {
         const imagesInCluster = cluster.image_ids
           .map(id => this.selectedImages.find(img => img.file.name === id))
@@ -133,7 +137,7 @@ export class AppComponent {
       });
     } catch (err) {
       console.error(err);
-      alert('Error enviando imágenes');
+      alert('Error sending images for clustering');
     } finally {
       this.loading = false;
     }
