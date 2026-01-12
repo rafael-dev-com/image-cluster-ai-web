@@ -31,8 +31,8 @@
   <!-- Clusters in grid -->
   <div *ngIf="clusters.length" class="clusters-grid">
     <div *ngFor="let cluster of clusters" class="cluster">
-      <h2>Cluster {{ cluster.name }}</h2>
-      <p *ngIf="cluster.description">Description: {{ cluster.description }}</p>
+      <h2>{{ cluster.name }}</h2>
+      <p *ngIf="cluster.description">{{ cluster.description }}</p>
       <div class="grid-images">
         <div *ngFor="let imgUrl of cluster.image_ids" class="grid-item">
           <img [src]="imgUrl" />
